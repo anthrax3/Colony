@@ -31,6 +31,7 @@ qt5_add_resources(RESOURCES
 # Collect source files
 set(SOURCES 
         source/main.cpp
+        source/SceneNode.cpp
 )
         
 # Add executable target
