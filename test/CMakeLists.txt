@@ -2,6 +2,7 @@
 set(SOURCES 
         main.cpp
         Dummy_Test.cpp
+        SceneNode_Test.cpp
 )
     
 # Add library target that gathers all the sources
@@ -14,10 +15,4 @@ target_link_libraries(unittest
                         PRIVATE
                             gtest_main
                             ${PROJECT_NAME}
-)
-                        
-# Include directories
-target_include_directories(unittest
-                            PRIVATE
-                                ./
 )

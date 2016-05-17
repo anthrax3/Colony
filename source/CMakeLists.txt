@@ -24,7 +24,7 @@ add_library(${PROJECT_NAME}
 
 # Include directories
 target_include_directories(${PROJECT_NAME}
-                            PRIVATE
+                            PUBLIC
                                 ./
 )
 
