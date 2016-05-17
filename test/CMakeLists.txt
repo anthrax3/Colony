@@ -3,6 +3,7 @@ set(SOURCES
         main.cpp
         Dummy_Test.cpp
         SceneNode_Test.cpp
+        GameObject_Test.cpp
 )
     
 # Add library target that gathers all the sources

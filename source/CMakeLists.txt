@@ -15,6 +15,8 @@ qt5_add_resources(RESOURCES
 # Collect source files
 set(SOURCES 
         SceneNode.cpp
+        Component.cpp
+        GameObject.cpp
 )
     
 # Add a project library target that gathers all the sources
