@@ -55,3 +55,5 @@ target_link_libraries(${PROJECT_NAME}
                             Qt5::Widgets 
                             Qt5::Qml
 )
+
+add_subdirectory(external/googletest)
