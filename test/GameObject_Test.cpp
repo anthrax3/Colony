@@ -19,15 +19,15 @@ class PhysicsComponent: public Component {
 class AIComponent: public Component {
 };
 
-TEST(GameObject_Test, addAndGetComponent) {
+TEST(GameObject_Test, add_then_find_component) {
     GameObject o;
     o.addComponent(make_shared<GraphicsComponent>());
     o.addComponent(make_shared<PhysicsComponent>());
     o.addComponent(make_shared<AIComponent>());
 
-    auto graphics_found = o.getComponentByType<GraphicsComponent>();
-    auto physics_found = o.getComponentByType<PhysicsComponent>();
-    auto ai_found = o.getComponentByType<AIComponent>();
+    auto graphics_found = o.findComponentByType<GraphicsComponent>();
+    auto physics_found = o.findComponentByType<PhysicsComponent>();
+    auto ai_found = o.findComponentByType<AIComponent>();
 
     EXPECT_TRUE(graphics_found);
     EXPECT_TRUE(physics_found);

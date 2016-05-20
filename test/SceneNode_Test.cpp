@@ -72,27 +72,27 @@ public:
     }
 };
 
-TEST_F(SceneNode_Test, childFindParent) {
-    auto found = c->findByType<BNode>();
+TEST_F(SceneNode_Test, child_finds_parent) {
+    auto found = c->findNodeByType<BNode>();
     EXPECT_TRUE(found);
 }
 
-TEST_F(SceneNode_Test, childFindGrandparent) {
-    auto found = c->findByType<ANode>();
+TEST_F(SceneNode_Test, child_finds_grandparent) {
+    auto found = c->findNodeByType<ANode>();
     EXPECT_TRUE(found);
 }
 
-TEST_F(SceneNode_Test, siblingFindSibling) {
-    auto found = c->findByType<DNode>();
+TEST_F(SceneNode_Test, sibling_finds_sibling) {
+    auto found = c->findNodeByType<DNode>();
     EXPECT_TRUE(found);
 }
 
-TEST_F(SceneNode_Test, parentCantFindChild) {
-    auto found = b->findByType<CNode>();
+TEST_F(SceneNode_Test, parent_cant_find_child) {
+    auto found = b->findNodeByType<CNode>();
     EXPECT_FALSE(found);
 }
 
-TEST_F(SceneNode_Test, granparentCantFindGrandchild) {
-    auto found = a->findByType<CNode>();
+TEST_F(SceneNode_Test, grandparent_cant_find_grandchild) {
+    auto found = a->findNodeByType<CNode>();
     EXPECT_FALSE(found);
 }

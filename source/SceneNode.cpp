@@ -9,15 +9,20 @@
 
 using namespace std;
 
-SceneNode::~SceneNode() {
-    // nothing to do here
-}
 
 SceneNode::SceneNode() :
-        parent(nullptr) {
+		parent(nullptr) {
 }
 
+SceneNode::~SceneNode() {
+}
+
+/**
+ * @name	addChild
+ * @brief	Add child node to current node and set it's parent to current node
+ * @param	child Node to be added
+ */
 void SceneNode::addChild(const shared_ptr<SceneNode> child) {
-    child->parent = this;
-    children.push_back(child);
+	child->parent = this;
+	children.push_back(child);
 }

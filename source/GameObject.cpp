@@ -11,14 +11,34 @@
 using namespace std;
 
 GameObject::GameObject() {
-    // nothing to do here
 }
 
 GameObject::~GameObject() {
-    // nothing to do here
 }
 
+/**
+ * @name	addComponent
+ * @brief	Add new component to the GameObject
+ * @param	component Component to be added
+ * @note	The component type must be unique within GameObject
+ */
 void GameObject::addComponent(const std::shared_ptr<Component> &component) {
-    auto hash = typeid(*component).hash_code();
+	component->finder = this;
+	unsigned long long hash = typeid(*component).hash_code();
     components.emplace(hash, component);
+}
+
+/**
+ * @name		findComponentByHashCode
+ * @implements	ComponentFinder::findComponentByHashCode
+ */
+shared_ptr<Component> GameObject::findComponentByHashCode(unsigned long long hash) {
+	auto result = components.find(hash);
+
+	// component found. Return pointer
+	if (result != components.end())
+		return result->second;
+
+	// component not found. Return empty pointer
+	return std::shared_ptr<Component>();
 }
