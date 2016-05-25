@@ -15,11 +15,6 @@
 
 class SceneNode {
 
-	// super-node
-	SceneNode *parent;
-
-	// sub-nodes
-	std::vector<std::shared_ptr<SceneNode>> children;
 
 	/**
 	 * @name	findByTypeFromChildrenUp
@@ -50,6 +45,13 @@ class SceneNode {
 		// child not found. Return empty pointer
 		return std::shared_ptr<NodeType>();
 	}
+
+public:
+	// super-node
+	SceneNode *parent;
+
+	// sub-nodes
+	std::vector<std::shared_ptr<SceneNode>> children;
 
 public:
 	SceneNode();
