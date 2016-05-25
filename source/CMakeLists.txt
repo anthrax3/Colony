@@ -14,20 +14,32 @@ qt5_add_resources(RESOURCES
 
 # Collect source files
 set(SOURCES 
-        SceneNode.cpp
         Component.cpp
+        GraphicsComponent.cpp
+        LocalTransformComponent.cpp
+        SceneNode.cpp
         GameObject.cpp
+        TransformMatrixCombiner.cpp
+        RenderItem.cpp
 )
     
 # Add a project library target that gathers all the sources
-add_library(${PROJECT_NAME}
+add_library(colony
                 ${SOURCES}
 )
 
-# Include directories
-target_include_directories(${PROJECT_NAME}
+# Link Qt dependencies
+target_link_libraries(colony 
+                        PUBLIC 
+                            Qt5::Core 
+                            Qt5::Widgets 
+                            Qt5::Qml
+)
+  
+# Include header directories
+target_include_directories(colony
                             PUBLIC
-                                ./
+                                ./  
 )
 
 # Add executable target that makes a demo
@@ -41,8 +53,6 @@ add_executable(demo
 # Link project library to the executable
 target_link_libraries(demo
                         PRIVATE
-                            ${PROJECT_NAME} 
-                            Qt5::Core 
-                            Qt5::Widgets 
-                            Qt5::Qml                            
+                            colony 
+                         
 )

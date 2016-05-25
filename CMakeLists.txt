@@ -14,8 +14,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -std=c++14")
 set(CMAKE_CXX_FLAGS_RELEASE "-O2 -DNDEBUG")
 set(CMAKE_CXX_FLAGS_DEBUG  "-O0 -g")
 
-cmake_policy(SET CMP0048 NEW)
 
-add_subdirectory(source)
 add_subdirectory(external/googletest)
+add_subdirectory(source)
 add_subdirectory(test)
