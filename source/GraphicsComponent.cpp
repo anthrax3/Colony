@@ -13,3 +13,7 @@ GraphicsComponent::GraphicsComponent() {
 GraphicsComponent::~GraphicsComponent() {
 }
 
+void GraphicsComponent::render() const {
+    // TODO: apply absolute_transform
+    render_item->render();
+}

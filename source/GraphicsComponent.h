@@ -27,7 +27,7 @@ public:
 
 	GraphicsComponent();
 	virtual ~GraphicsComponent();
-
+	void render() const;
 };
 
 #endif /* SOURCE_GRAPHICSCOMPONENT_H_ */
