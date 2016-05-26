@@ -1,6 +1,6 @@
 # Find QT dependncies
 find_package(Qt5Core REQUIRED)
-find_package(Qt5Widgets REQUIRED)
+find_package(Qt5Quick REQUIRED)
 find_package(Qt5Qml REQUIRED)
 
 # Do QT configuration
@@ -21,6 +21,8 @@ set(SOURCES
         GameObject.cpp
         TransformMatrixCombiner.cpp
         RenderItem.cpp
+        SceneView.cpp
+        SceneRenderer.cpp
 )
     
 # Add a project library target that gathers all the sources
@@ -32,8 +34,9 @@ add_library(colony
 target_link_libraries(colony 
                         PUBLIC 
                             Qt5::Core 
-                            Qt5::Widgets 
+                            Qt5::Quick 
                             Qt5::Qml
+
 )
   
 # Include header directories
@@ -54,5 +57,4 @@ add_executable(demo
 target_link_libraries(demo
                         PRIVATE
                             colony 
-                         
 )
