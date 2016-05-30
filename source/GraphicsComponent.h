@@ -13,6 +13,7 @@
 #include "Component.h"
 #include "RenderItem.h"
 #include <iostream>
+
 /**
  * @class	GraphicsComponent
  * @brief	Represents graphical aspect of GameObject together with its absolute transform
@@ -27,7 +28,8 @@ public:
 
 	GraphicsComponent();
 	virtual ~GraphicsComponent();
-	void render() const;
+
+	void render(const std::shared_ptr<QMatrix4x4> &projection) const;
 };
 
 #endif /* SOURCE_GRAPHICSCOMPONENT_H_ */

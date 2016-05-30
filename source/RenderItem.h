@@ -8,6 +8,9 @@
 #ifndef SOURCE_RENDERITEM_H_
 #define SOURCE_RENDERITEM_H_
 
+#include <memory>
+#include <QtGui/QMatrix4x4>
+
 class RenderItem {
 public:
 	RenderItem();
@@ -31,7 +34,7 @@ public:
 	 * @brief	Eg. render the Milkshape3D model using OpenGl calls
 	 * @note	The model being rendered can't be the same data that is updated by "update" (threading)
 	 */
-	virtual void render() = 0;
+	virtual void render(const std::shared_ptr<QMatrix4x4> &m) = 0;
 };
 
 #endif /* SOURCE_RENDERITEM_H_ */
