@@ -20,7 +20,7 @@
 class SceneRenderer : public QObject, protected QOpenGLFunctions {
     Q_OBJECT
     QSize viewportSize;
-    QMatrix4x4 projectionMatrix;
+    std::shared_ptr<QMatrix4x4> projectionMatrix;
 
     void renderSceneNode(const std::shared_ptr<GameObject> &node) const;
 public:
