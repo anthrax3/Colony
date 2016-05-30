@@ -9,6 +9,7 @@
 #define SOURCE_SCENEVIEW_H_
 
 #include <QtQuick/QQuickView>
+#include <QtCore/QTimer>
 #include "SceneRenderer.h"
 
 /**
@@ -17,7 +18,7 @@
  */
 class SceneView : public QQuickView {
     Q_OBJECT
-
+    QTimer timer;
 public:
     std::shared_ptr<GameObject> scene_graph_root;
     SceneRenderer renderer;
@@ -33,7 +34,7 @@ public slots:
     void synchronizeUnderlay();
     void renderUnderlay();
     void invalidateUnderlay();
-//    void onTimer();
+    void onTimer();
 };
 
 #endif /* SOURCE_SCENEVIEW_H_ */

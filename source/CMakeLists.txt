@@ -23,6 +23,7 @@ set(SOURCES
         RenderItem.cpp
         SceneView.cpp
         SceneRenderer.cpp
+        Line2DRenderItem.cpp
 )
     
 # Add a project library target that gathers all the sources

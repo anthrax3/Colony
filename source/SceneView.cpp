@@ -8,6 +8,8 @@
 #include <QtQuick/QQuickWindow>
 #include <QtQml/QQmlContext>
 #include <QtGui/QScreen>
+#include "TransformMatrixCombiner.h"
+#include "LocalTransformComponent.h"
 #include "SceneView.h"
 
 using namespace std;
@@ -45,8 +47,8 @@ SceneView::SceneView() : QQuickView(nullptr)
     // load qml scene
     setSource(QUrl(QStringLiteral("qrc:/main.qml")));
 
-//    connect(&timer, &QTimer::timeout, this, &QuickView::onTimer);
-//    timer.start(TARGET_DELTA_TIME_SEC * 1000);
+    connect(&timer, &QTimer::timeout, this, &SceneView::onTimer);
+    timer.start(16);
 }
 
 SceneView::~SceneView() {
@@ -65,10 +67,10 @@ void SceneView::showCentralized() {
 }
 
 // On timer event; every 16ms
-//void SceneView::onTimer() {
-//    camera.setAzimuth(camera.getAzimuth() + 15.f * TARGET_DELTA_TIME_SEC);
-//    update();
-//}
+void SceneView::onTimer() {
+    //camera.setAzimuth(camera.getAzimuth() + 15.f * TARGET_DELTA_TIME_SEC);
+    update();
+}
 
 /**
  * @name    initializeUnderlay
@@ -92,6 +94,10 @@ void SceneView::synchronizeUnderlay() {
 //    renderer.setViewportSize(this->size());
 //    renderer.setModelFilename(rendererControl.getModelFilename());
 //    renderer.prepare(TARGET_DELTA_TIME_SEC);
+    auto transform = scene_graph_root->findComponentByType<LocalTransformComponent>();
+    transform->rotate+= QVector3D(0, 0, 0.5);
+    renderer.setViewportSize(this->size());
+    TransformMatrixCombiner::combineLocalTransforms(scene_graph_root);
 }
 
 /**
