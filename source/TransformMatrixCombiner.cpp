@@ -25,7 +25,7 @@ void TransformMatrixCombiner::recursiveCombineTransforms(const shared_ptr<GameOb
     auto transform_component = node->findComponentByType<LocalTransformComponent>();
 
     if (transform_component)
-        absolute = make_shared<QMatrix4x4>(transform_component->getMatrix() * (*absolute));
+        absolute = make_shared<QMatrix4x4>((*absolute) * transform_component->getMatrix());
 
     if (graphics_component)
         graphics_component->absolute_transform = absolute;

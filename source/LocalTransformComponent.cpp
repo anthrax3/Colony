@@ -18,10 +18,10 @@ LocalTransformComponent::~LocalTransformComponent() {
 
 QMatrix4x4 LocalTransformComponent::getMatrix() const {
 	QMatrix4x4 m;
-	m.scale(scale);
+	m.translate(translate);
 	m.rotate(rotate.x(), 1.0f, 0.0f, 0.0f);
 	m.rotate(rotate.y(), 0.0f, 1.0f, 0.0f);
 	m.rotate(rotate.z(), 0.0f, 0.0f, 1.0f);
-	m.translate(translate);
+	m.scale(scale);
 	return m;
 }

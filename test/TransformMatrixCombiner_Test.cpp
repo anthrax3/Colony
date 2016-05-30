@@ -61,7 +61,7 @@ TEST(TransformMatrixCombiner_Test, combine_transforms_correct)
     QMatrix4x4 scale_m;
     scale_m.scale(scale);
 
-    QMatrix4x4 expected_absolute ( scale_m * rotate_m * translate_m);
+    QMatrix4x4 expected_absolute (translate_m * rotate_m * scale_m);
 
     shared_ptr<GameObject> root_node = make_shared<GameObject>();
     shared_ptr<GameObject> a_node = make_shared<GameObject>();
