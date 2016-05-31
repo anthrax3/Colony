@@ -35,6 +35,8 @@ public:
 
 	Component();
 	virtual ~Component();
+
+	virtual void update(float delta_time);
 };
 
 #endif /* SOURCE_COMPONENT_H_ */

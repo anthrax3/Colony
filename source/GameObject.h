@@ -19,14 +19,13 @@
  * @brief	Makes a building block of game scene. Made up from components that represent aspects of its nature
  */
 class GameObject: public ComponentFinder, public SceneNode {
-
-    // hash-to-component map
-    std::unordered_map<unsigned long long, std::shared_ptr<Component>> components;
-
 protected:
     std::shared_ptr<Component> findComponentByHashCode(unsigned long long hash) override;
 
 public:
+    // hash-to-component map
+    std::unordered_map<unsigned long long, std::shared_ptr<Component>> components;
+
     GameObject();
     virtual ~GameObject();
 

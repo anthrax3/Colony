@@ -11,7 +11,7 @@
 #include <QtQuick/QQuickView>
 #include <QtCore/QTimer>
 #include "SceneRenderer.h"
-
+#include "SceneUpdater.h"
 /**
  * @class   SceneView
  * @brief   provide QML-enabled render window with OpenGl context for custom OpenGl rendering
@@ -22,6 +22,7 @@ class SceneView : public QQuickView {
 public:
     std::shared_ptr<GameObject> scene_graph_root;
     SceneRenderer renderer;
+    SceneUpdater updater;
 
     SceneView();
     virtual ~SceneView();

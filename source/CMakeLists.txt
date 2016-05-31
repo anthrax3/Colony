@@ -25,6 +25,8 @@ set(SOURCES
         SceneRenderer.cpp
         Line2DRenderItem.cpp
         SceneBuilder.cpp
+        SceneUpdater.cpp
+        RotatorComponent.cpp
 )
     
 # Add a project library target that gathers all the sources

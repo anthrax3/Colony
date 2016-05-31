@@ -54,7 +54,6 @@ SceneView::SceneView() : QQuickView(nullptr)
 SceneView::~SceneView() {
 }
 
-
 /**
  * @name    showCentralized
  * @brief   display the render window centralized in the screen
@@ -66,9 +65,15 @@ void SceneView::showCentralized() {
     QQuickView::show();
 }
 
-// On timer event; every 16ms
+/**
+ * @name    onTimer
+ * @brief   acts as GameLoop, updating/rendering; for now its enough
+ */
 void SceneView::onTimer() {
-    //camera.setAzimuth(camera.getAzimuth() + 15.f * TARGET_DELTA_TIME_SEC);
+    // update the scene graph
+    updater.update(scene_graph_root, 16.0f / 1000); // 16 msec
+
+    // repaint the screen
     update();
 }
 
@@ -94,8 +99,8 @@ void SceneView::synchronizeUnderlay() {
 //    renderer.setViewportSize(this->size());
 //    renderer.setModelFilename(rendererControl.getModelFilename());
 //    renderer.prepare(TARGET_DELTA_TIME_SEC);
-    auto transform = scene_graph_root->findComponentByType<LocalTransformComponent>();
-    transform->rotate+= QVector3D(0, 0, 0.5);
+//    auto transform = scene_graph_root->findComponentByType<LocalTransformComponent>();
+//    transform->rotate+= QVector3D(0, 0, 0.5);
     renderer.setViewportSize(this->size());
     TransformMatrixCombiner::combineLocalTransforms(scene_graph_root);
 }
