@@ -18,6 +18,9 @@
 class SceneBuilder {
 public:
     static std::shared_ptr<GameObject> buildCircleFromLines();
+    static std::shared_ptr<GameObject> buildDoubleCircleFromLines();
+    static std::shared_ptr<GameObject> buildSingleAnt();
+    static std::shared_ptr<GameObject> buildNumerousAnts();
 };
 
 #endif /* SOURCE_SCENEBUILDER_H_ */

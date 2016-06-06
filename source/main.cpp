@@ -14,7 +14,7 @@ int main(int argc, char *argv[])
     QGuiApplication app(argc, argv);
 
     SceneView view;
-    view.scene_graph_root = SceneBuilder::buildCircleFromLines();
+    view.scene_graph_root = SceneBuilder::buildNumerousAnts();
     view.resize(640, 480);
     view.showCentralized();
 

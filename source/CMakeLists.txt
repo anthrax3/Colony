@@ -27,6 +27,8 @@ set(SOURCES
         SceneBuilder.cpp
         SceneUpdater.cpp
         RotatorComponent.cpp
+        Ant.cpp
+        SimpleAntDriver.cpp
 )
     
 # Add a project library target that gathers all the sources
