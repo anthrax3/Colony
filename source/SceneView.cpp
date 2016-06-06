@@ -70,7 +70,9 @@ void SceneView::showCentralized() {
  * @brief   acts as GameLoop, updating/rendering; for now its enough
  */
 void SceneView::onTimer() {
-    // update the scene graph
+    // update the scene graph.
+    // Dont change scene graph struct when rendering!!!
+    // Use buffered scene node operations eg. bufferedAddChild, and the bufferSync in thread sync phase
     updater.update(scene_graph_root, 16.0f / 1000); // 16 msec
 
     // repaint the screen
@@ -101,7 +103,9 @@ void SceneView::synchronizeUnderlay() {
 //    renderer.prepare(TARGET_DELTA_TIME_SEC);
 //    auto transform = scene_graph_root->findComponentByType<LocalTransformComponent>();
 //    transform->rotate+= QVector3D(0, 0, 0.5);
+
     renderer.setViewportSize(this->size());
+    synchronizer.sync(scene_graph_root);
     TransformMatrixCombiner::combineLocalTransforms(scene_graph_root);
 }
 

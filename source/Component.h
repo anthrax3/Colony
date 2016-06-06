@@ -9,6 +9,7 @@
 #define SOURCE_COMPONENT_H_
 
 #include <memory>
+#include "SceneNode.h"
 #include "ComponentFinder.h"
 
 /**
@@ -32,6 +33,10 @@ public:
 	// finder allows the component to find other components within the same GameObject
 	// handy eg. when collision should result in sound effect
 	ComponentFinder *finder;
+
+	// owner SceneNode of the component
+	// handy eg. when timer should add a new ant
+	SceneNode *owner;
 
 	Component();
 	virtual ~Component();

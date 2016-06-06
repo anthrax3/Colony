@@ -52,13 +52,15 @@ public:
 
 	// sub-nodes
 	std::vector<std::shared_ptr<SceneNode>> children;
+	std::vector<std::shared_ptr<SceneNode>> buffer_add;
 
 public:
 	SceneNode();
 	virtual ~SceneNode();
 
 	void addChild(const std::shared_ptr<SceneNode> child);
-
+	void bufferedAddChild(const std::shared_ptr<SceneNode> child);
+	void bufferSync();
 	/**
 	 * @name	findNodeByType
 	 * @brief	Find first occurrence of a node of type NodeType among siblings or up in the graph

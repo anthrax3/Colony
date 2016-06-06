@@ -24,6 +24,7 @@ GameObject::~GameObject() {
  */
 void GameObject::addComponent(const std::shared_ptr<Component> &component) {
 	component->finder = this;
+	component->owner = this;
 	unsigned long long hash = typeid(*component).hash_code();
     components.emplace(hash, component);
 }

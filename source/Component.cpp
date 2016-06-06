@@ -8,7 +8,7 @@
 #include "Component.h"
 
 Component::Component() :
-        finder(nullptr) {
+        finder(nullptr), owner(nullptr) {
 }
 
 Component::~Component() {

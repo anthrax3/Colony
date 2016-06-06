@@ -23,12 +23,16 @@ set(SOURCES
         RenderItem.cpp
         SceneView.cpp
         SceneRenderer.cpp
+        SceneSynchronizer.cpp
         Line2DRenderItem.cpp
         SceneBuilder.cpp
         SceneUpdater.cpp
         RotatorComponent.cpp
         Ant.cpp
         SimpleAntDriver.cpp
+        TimerComponent.cpp
+        AntGeneratorComponent.cpp
+        AntHillBuilder.cpp
 )
     
 # Add a project library target that gathers all the sources

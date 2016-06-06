@@ -11,6 +11,7 @@
 #include "LocalTransformComponent.h"
 #include "RotatorComponent.h"
 #include "Ant.h"
+#include "AntHillBuilder.h"
 #include "SceneBuilder.h"
 
 using namespace std;
@@ -155,3 +156,8 @@ shared_ptr<GameObject> SceneBuilder::buildNumerousAnts() {
     }
     return root;
 }
+
+std::shared_ptr<GameObject> SceneBuilder::buildAntHill(float x, float y) {
+    return AntHillBuilder::buildAntHill(x, y);
+}
+

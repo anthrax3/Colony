@@ -25,7 +25,7 @@ Ant::Ant() {
 
     // position
     auto transform = make_shared<LocalTransformComponent>();
-    transform->translate = QVector3D(50, 50, 0);
+    transform->translate = QVector3D(0, 0, 0);
     transform->scale = QVector3D(4, 4, 1);
     addComponent(transform);
 
