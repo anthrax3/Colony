@@ -7,9 +7,30 @@
 
 #include "LocalTransformComponent.h"
 #include "AntGeneratorComponent.h"
+#include "GraphicsComponent.h"
+#include "CircleRenderItem.h"
 #include "AntHillBuilder.h"
 
 using namespace std;
+
+/**
+ * @name    buildAntHillVisual
+ * @brief   Creates an AntHill visual representation
+ * @return  The created visual rep. of Ant Hill that can be added to the actual AntHill
+ */
+std::shared_ptr<GameObject> buildAntHillCircle() {
+    auto transform = make_shared<LocalTransformComponent>();
+    transform->scale = QVector3D(10, 10, 0);
+
+    auto graphics = make_shared<GraphicsComponent>();
+    graphics->render_item = make_shared<CircleRenderItem>();
+
+    auto root = make_shared<GameObject>();
+    root->addComponent(graphics);
+    root->addComponent(transform);
+
+    return root;
+}
 
 /**
  * @name    buildAntHill
@@ -27,8 +48,11 @@ std::shared_ptr<GameObject> AntHillBuilder::buildAntHill(float x, float y) {
     ant_generator->time_interval = 0.1f;
     ant_generator->enabled = true;
 
+    auto circle = buildAntHillCircle();
     auto ant_hill = make_shared<GameObject>();
+    ant_hill->addChild(circle);
     ant_hill->addComponent(ant_generator);
     ant_hill->addComponent(transform);
+
     return ant_hill;
 }

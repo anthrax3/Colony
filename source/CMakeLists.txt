@@ -33,6 +33,7 @@ set(SOURCES
         TimerComponent.cpp
         AntGeneratorComponent.cpp
         AntHillBuilder.cpp
+        CircleRenderItem.cpp
 )
     
 # Add a project library target that gathers all the sources

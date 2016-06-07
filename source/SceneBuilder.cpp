@@ -8,6 +8,7 @@
 #include "GameObject.h"
 #include "GraphicsComponent.h"
 #include "Line2DRenderItem.h"
+#include "CircleRenderItem.h"
 #include "LocalTransformComponent.h"
 #include "RotatorComponent.h"
 #include "Ant.h"
@@ -161,3 +162,22 @@ std::shared_ptr<GameObject> SceneBuilder::buildAntHill(float x, float y) {
     return AntHillBuilder::buildAntHill(x, y);
 }
 
+std::shared_ptr<GameObject> SceneBuilder::buildCirce() {
+    auto root = make_shared<GameObject>();
+
+    // center the circle about (320, 240)
+    auto transform = make_shared<LocalTransformComponent>();
+    transform->translate = QVector3D(320, 240, 0);
+
+    // radius 100
+    transform->scale = QVector3D(100, 100, 1);
+
+
+    auto graphics = make_shared<GraphicsComponent>();
+    graphics->render_item = make_shared<CircleRenderItem>();
+
+    root->addComponent(transform);
+    root->addComponent(graphics);
+
+    return root;
+}

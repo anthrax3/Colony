@@ -22,6 +22,7 @@ public:
     static std::shared_ptr<GameObject> buildSingleAnt();
     static std::shared_ptr<GameObject> buildNumerousAnts();
     static std::shared_ptr<GameObject> buildAntHill(float x, float y);
+    static std::shared_ptr<GameObject> buildCirce();
 };
 
 #endif /* SOURCE_SCENEBUILDER_H_ */
