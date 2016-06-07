@@ -34,6 +34,7 @@ set(SOURCES
         AntGeneratorComponent.cpp
         AntHillBuilder.cpp
         CircleRenderItem.cpp
+        GranaryComponent.cpp
 )
     
 # Add a project library target that gathers all the sources

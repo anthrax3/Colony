@@ -9,6 +9,7 @@
 #include "AntGeneratorComponent.h"
 #include "GraphicsComponent.h"
 #include "CircleRenderItem.h"
+#include "GranaryComponent.h"
 #include "AntHillBuilder.h"
 
 using namespace std;
@@ -44,6 +45,8 @@ std::shared_ptr<GameObject> AntHillBuilder::buildAntHill(float x, float y) {
     auto transform = make_shared<LocalTransformComponent>();
     transform->translate = QVector3D(x, y, 0);
 
+    auto granary = make_shared<GranaryComponent>();
+
     auto ant_generator = make_shared<AntGeneratorComponent>();
     ant_generator->time_interval = 0.1f;
     ant_generator->enabled = true;
@@ -51,6 +54,7 @@ std::shared_ptr<GameObject> AntHillBuilder::buildAntHill(float x, float y) {
     auto circle = buildAntHillCircle();
     auto ant_hill = make_shared<GameObject>();
     ant_hill->addChild(circle);
+    ant_hill->addComponent(granary);
     ant_hill->addComponent(ant_generator);
     ant_hill->addComponent(transform);
 
