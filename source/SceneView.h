@@ -10,6 +10,7 @@
 
 #include <QtQuick/QQuickView>
 #include <QtCore/QTimer>
+#include <QtCore/QElapsedTimer>
 #include "SceneRenderer.h"
 #include "SceneUpdater.h"
 #include "SceneSynchronizer.h"
@@ -20,6 +21,7 @@
 class SceneView : public QQuickView {
     Q_OBJECT
     QTimer timer;
+    QElapsedTimer elapsed_timer;
 public:
     std::shared_ptr<GameObject> scene_graph_root;
     SceneRenderer renderer;

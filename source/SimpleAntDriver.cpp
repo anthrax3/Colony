@@ -39,18 +39,18 @@ SimpleAntDriver::~SimpleAntDriver() {
  */
 void SimpleAntDriver::update(float delta_time) {
     if (auto transform = findComponentByType<LocalTransformComponent>()) {
-        auto &translate = transform->translate;
+        QVector4D next_position = transform->absolute_transform.column(3) + direction * speed * delta_time;
 
-        if ((translate.x() < 0) || (translate.x() > 320))
+        if ((next_position.x() <= 0) || (next_position.x() > 320))
             direction.setX(-direction.x());
 
-        if ((translate.y() < 0) || (translate.y() > 240))
+        if ((next_position.y() <= 0) || (next_position.y() > 240))
             direction.setY(-direction.y());
 
-        translate += direction * speed * delta_time;
+        transform->translate += direction * speed * delta_time;
 
         if (direction.x() == 0.0f)
-            transform->rotate.setZ(0.0f);
+            transform->rotate.setZ(90.0f);
         else
             transform->rotate.setZ(180.0f / 3.14f * atan(direction.y() / direction.x()));
     }

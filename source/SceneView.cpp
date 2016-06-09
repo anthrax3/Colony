@@ -49,6 +49,7 @@ SceneView::SceneView() : QQuickView(nullptr)
 
     connect(&timer, &QTimer::timeout, this, &SceneView::onTimer);
     timer.start(16);
+    elapsed_timer.start();
 }
 
 SceneView::~SceneView() {
@@ -68,12 +69,18 @@ void SceneView::showCentralized() {
 /**
  * @name    onTimer
  * @brief   acts as GameLoop, updating/rendering; for now its enough
+ * @note    Called from GUI thread
  */
 void SceneView::onTimer() {
-    // update the scene graph.
-    // Dont change scene graph struct when rendering!!!
+
+    // Dont change scene graph struct when rendering might be ongoing!!!
     // Use buffered scene node operations eg. bufferedAddChild, and the bufferSync in thread sync phase
-    updater.update(scene_graph_root, 16.0f / 1000); // 16 msec
+
+    // build absolute transform matrices by combining local transforms
+    TransformMatrixCombiner::combineLocalTransforms(scene_graph_root);
+
+    // update the scene graph
+    updater.update(scene_graph_root, elapsed_timer.restart() / 1000.0f);
 
     // repaint the screen
     update();
@@ -106,7 +113,6 @@ void SceneView::synchronizeUnderlay() {
 
     renderer.setViewportSize(this->size());
     synchronizer.sync(scene_graph_root);
-    TransformMatrixCombiner::combineLocalTransforms(scene_graph_root);
 }
 
 /**

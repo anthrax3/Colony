@@ -16,7 +16,12 @@ LocalTransformComponent::LocalTransformComponent() {
 LocalTransformComponent::~LocalTransformComponent() {
 }
 
-QMatrix4x4 LocalTransformComponent::getMatrix() const {
+/**
+ * @name    getLocalTransform
+ * @brief   Build transform matrix from local translation, rotation and scale
+ * @return  Local transform matrix
+ */
+QMatrix4x4 LocalTransformComponent::getLocalTransform() const {
 	QMatrix4x4 m;
 	m.translate(translate);
 	m.rotate(rotate.x(), 1.0f, 0.0f, 0.0f);

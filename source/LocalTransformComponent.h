@@ -16,16 +16,20 @@
  * @class	LocalTransformComponent
  * @brief	Represents local transformation of GameObject
  */
-class LocalTransformComponent : public Component {
+class LocalTransformComponent: public Component {
 public:
-	 QVector3D translate;
-	 QVector3D rotate;
-	 QVector3D scale;
+    // local transformations
+    QVector3D translate;
+    QVector3D rotate;
+    QVector3D scale;
 
-	LocalTransformComponent();
-	virtual ~LocalTransformComponent();
+    // absolute transform will be computed as combination of parent nodes and this local transform
+    QMatrix4x4 absolute_transform;
 
-	QMatrix4x4 getMatrix() const;
+    LocalTransformComponent();
+    virtual ~LocalTransformComponent();
+
+    QMatrix4x4 getLocalTransform() const;
 };
 
 #endif /* SOURCE_LOCALTRANSFORMCOMPONENT_H_ */

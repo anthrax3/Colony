@@ -21,14 +21,10 @@ using namespace std;
 void TransformMatrixCombiner::recursiveCombineTransforms(const shared_ptr<GameObject> &node,
         shared_ptr<QMatrix4x4> absolute) {
 
-    shared_ptr<GraphicsComponent> graphics_component = node->findComponentByType<GraphicsComponent>();
-    auto transform_component = node->findComponentByType<LocalTransformComponent>();
-
-    if (transform_component)
-        absolute = make_shared<QMatrix4x4>((*absolute) * transform_component->getMatrix());
-
-    if (graphics_component)
-        graphics_component->absolute_transform = absolute;
+    if (auto transform_component = node->findComponentByType<LocalTransformComponent>()) {
+        absolute = make_shared<QMatrix4x4>((*absolute) * transform_component->getLocalTransform());
+        transform_component->absolute_transform = *absolute;
+    }
 
     for (const auto child : node->children) {
         auto game_object = static_pointer_cast<GameObject>(child);
@@ -43,6 +39,5 @@ void TransformMatrixCombiner::recursiveCombineTransforms(const shared_ptr<GameOb
  */
 void TransformMatrixCombiner::combineLocalTransforms(const shared_ptr<GameObject> &root) {
     auto identity = make_shared<QMatrix4x4>();
-    identity->setToIdentity();
     recursiveCombineTransforms(root, identity);
 }
