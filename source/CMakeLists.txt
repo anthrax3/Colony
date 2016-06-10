@@ -35,6 +35,9 @@ set(SOURCES
         AntHillBuilder.cpp
         CircleRenderItem.cpp
         GranaryComponent.cpp
+        PhysicsComponent.cpp
+        ColliderItem.cpp
+        CircleColliderItem.cpp
 )
     
 # Add a project library target that gathers all the sources
