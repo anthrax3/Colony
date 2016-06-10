@@ -17,7 +17,7 @@
  * @brief	Building Block of GameObject that represents one aspect of its nature. Eg. Collision/Sound/Graphics
  */
 class Component {
-protected:
+public:
 	/**
 	 * @name	findComponentByType
 	 * @brief	Find a component of desired type residing in the same GameObject
@@ -29,7 +29,7 @@ protected:
 		return finder->findComponentByType<ComponentType>();
 	}
 
-public:
+
 	// finder allows the component to find other components within the same GameObject
 	// handy eg. when collision should result in sound effect
 	ComponentFinder *finder;

@@ -5,14 +5,40 @@
  * @author: mateusz
  */
 
+#include "CollisionResolver.h"
 #include "PhysicsComponent.h"
+#include <iostream>
+
+
+std::shared_ptr<CollisionResolver> resolver;
 
 PhysicsComponent::PhysicsComponent() {
-	// TODO Auto-generated constructor stub
-
+    collider_registered = false;
 }
 
+/**
+ * @brief   Destructor. Unregister the collider if possible
+ */
 PhysicsComponent::~PhysicsComponent() {
-	// TODO Auto-generated destructor stub
+    if ((collider_registered) && (collider_item) && (resolver)) {
+        resolver->removeCollider(this);
+        collider_registered = false;
+        std::cout << "PhysicsComponent: collider unregistered!" << std::endl;
+    }
 }
 
+/**
+ * @name    update
+ * @brief   Register the collider in CollisionResolver scene node, if possible
+ * @param   delta_time Time elapsed from last update in seconds
+ */
+void PhysicsComponent::update(float delta_time) {
+    if ((!collider_registered) && (collider_item)) {
+        resolver = owner->findNodeByTypeEverywhere<CollisionResolver>();
+        if (resolver) {
+            resolver->addCollider(this);
+            collider_registered = true;
+            std::cout << "PhysicsComponent: collider registered!" << std::endl;
+        }
+    }
+}

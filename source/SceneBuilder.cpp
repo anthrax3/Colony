@@ -13,6 +13,8 @@
 #include "RotatorComponent.h"
 #include "Ant.h"
 #include "AntHillBuilder.h"
+#include "CollisionResolver.h"
+#include "CircleColliderItem.h"
 #include "SceneBuilder.h"
 
 using namespace std;
@@ -158,11 +160,11 @@ shared_ptr<GameObject> SceneBuilder::buildNumerousAnts() {
     return root;
 }
 
-std::shared_ptr<GameObject> SceneBuilder::buildAntHill(float x, float y) {
+shared_ptr<GameObject> SceneBuilder::buildAntHill(float x, float y) {
     return AntHillBuilder::buildAntHill(x, y);
 }
 
-std::shared_ptr<GameObject> SceneBuilder::buildCirce() {
+shared_ptr<GameObject> SceneBuilder::buildCirce() {
     auto root = make_shared<GameObject>();
 
     // center the circle about (320, 240)
@@ -178,6 +180,39 @@ std::shared_ptr<GameObject> SceneBuilder::buildCirce() {
 
     root->addComponent(transform);
     root->addComponent(graphics);
+
+    return root;
+}
+
+shared_ptr<GameObject> buildCircularObstacle(float x, float y, float radius) {
+    auto root = make_shared<GameObject>();
+
+    auto transform = make_shared<LocalTransformComponent>();
+    transform->translate = QVector3D(x, y, 0);
+    transform->scale = QVector3D(radius, radius, 1);
+
+    auto physics = make_shared<PhysicsComponent>();
+    physics->collider_item = make_shared<CircleColliderItem>(radius);
+
+    auto graphics = make_shared<GraphicsComponent>();
+    graphics->render_item = make_shared<CircleRenderItem>();
+
+    root->addComponent(transform);
+    root->addComponent(physics);
+    root->addComponent(graphics);
+
+    return root;
+}
+
+shared_ptr<GameObject> SceneBuilder::buildAntHillSceneWithCollisionResolver(float x, float y) {
+    auto root = make_shared<GameObject>();
+    auto collision_resolver = make_shared<CollisionResolver>();
+    auto ant_hill = AntHillBuilder::buildAntHill(x, y);
+    root->addChild(collision_resolver);
+    root->addChild(ant_hill);
+    root->addChild(buildCircularObstacle(270, 100, 40));
+    root->addChild(buildCircularObstacle(200, 200, 35));
+    root->addChild(buildCircularObstacle(20, 150, 30));
 
     return root;
 }

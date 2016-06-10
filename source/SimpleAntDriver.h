@@ -8,7 +8,9 @@
 #ifndef SOURCE_SIMPLEANTDRIVER_H_
 #define SOURCE_SIMPLEANTDRIVER_H_
 
-#include <QtGui/QVector2D>
+#include <memory>
+#include <QtGui/QVector3D>
+#include "CollisionResolver.h"
 #include "Component.h"
 
 /**
@@ -18,10 +20,13 @@
 class SimpleAntDriver: public Component {
 public:
     // movement direction
-    QVector2D direction;
+    QVector3D direction;
 
     // movement speed
     float speed;
+
+    // collision_resolver allows the driver to avoid obstacles
+    std::shared_ptr<CollisionResolver> collision_resolver;
 
     SimpleAntDriver();
     virtual ~SimpleAntDriver();

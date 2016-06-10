@@ -38,6 +38,7 @@ set(SOURCES
         PhysicsComponent.cpp
         ColliderItem.cpp
         CircleColliderItem.cpp
+        CollisionResolver.cpp
 )
     
 # Add a project library target that gathers all the sources

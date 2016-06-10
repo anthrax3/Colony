@@ -46,6 +46,35 @@ class SceneNode {
 		return std::shared_ptr<NodeType>();
 	}
 
+    template<class NodeType>
+    std::shared_ptr<NodeType> findNodeByTypeFromChildrenDown() {
+
+        // a handy shortcut for getting hash_code
+        #define HASH(E) (typeid(E).hash_code())
+
+        // check if type of object under obj_ptr is NodeType
+        auto isDesiredType = [](auto obj_ptr) { return HASH(NodeType) == HASH(*obj_ptr); };
+
+        // check every child
+        for (const auto child : children) {
+            if (isDesiredType(child))
+                return std::static_pointer_cast<NodeType>(child);
+
+            if (auto found = child->findNodeByTypeFromChildrenDown<NodeType>())
+                return found;
+        }
+
+        // node not found. Return empty pointer
+        return std::shared_ptr<NodeType>();
+    }
+
+    SceneNode* findRoot(SceneNode *node) {
+        while (node->parent)
+            node = node->parent;
+
+        return node;
+    }
+
 public:
 	// super-node
 	SceneNode *parent;
@@ -61,6 +90,7 @@ public:
 	void addChild(const std::shared_ptr<SceneNode> child);
 	void bufferedAddChild(const std::shared_ptr<SceneNode> child);
 	void bufferSync();
+
 	/**
 	 * @name	findNodeByType
 	 * @brief	Find first occurrence of a node of type NodeType among siblings or up in the graph
@@ -77,6 +107,22 @@ public:
 		// check parent's children (siblings of this node) and up in the graph
 		return parent->findNodeByTypeFromChildrenUp<NodeType>();
 	}
+
+    /**
+     * @name    findNodeByTypeEverywhere
+     * @brief   Find first occurrence of a node of type NodeType among root children or down in the graph
+     * @param   NodeType Type of desired node
+     * @return  Pointer to node, if exists. Empty pointer otherwise
+     */
+    template<class NodeType>
+    std::shared_ptr<NodeType> findNodeByTypeEverywhere() {
+
+        // first - find the root node
+        auto root = findRoot(this);
+
+        // check root children and down in the graph
+        return root->findNodeByTypeFromChildrenDown<NodeType>();
+    }
 };
 
 #endif /* SOURCE_SCENENODE_H_ */

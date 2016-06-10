@@ -18,6 +18,7 @@
 class AntHillBuilder {
 public:
     static std::shared_ptr<GameObject> buildAntHill(float x, float y);
+    static std::shared_ptr<GameObject> buildAntHillVisual();
 };
 
 #endif /* SOURCE_ANTHILLBUILDER_H_ */
