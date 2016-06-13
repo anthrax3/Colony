@@ -7,11 +7,6 @@ find_package(Qt5Qml REQUIRED)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
-# Add QT resources
-qt5_add_resources(RESOURCES 
-                    ../resource/qml.qrc
-)
-
 # Collect source files
 set(SOURCES 
         Component.cpp
@@ -59,18 +54,4 @@ target_link_libraries(colony
 target_include_directories(colony
                             PUBLIC
                                 ./  
-)
-
-# Add executable target that makes a demo
-add_executable(demo
-                    main.cpp 
-                    ${HDR}
-                    ${INT_HDR}
-                    ${RESOURCES}
-)
-
-# Link project library to the executable
-target_link_libraries(demo
-                        PRIVATE
-                            colony 
 )

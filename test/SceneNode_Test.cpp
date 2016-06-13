@@ -96,3 +96,8 @@ TEST_F(SceneNode_Test, grandparent_cant_find_grandchild) {
     auto found = a->findNodeByType<CNode>();
     EXPECT_FALSE(found);
 }
+
+TEST_F(SceneNode_Test, grandparent_finds_grandchild) {
+    auto found = a->findNodeByTypeEverywhere<CNode>();
+    EXPECT_TRUE(found);
+}

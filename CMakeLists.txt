@@ -17,4 +17,5 @@ set(CMAKE_CXX_FLAGS_DEBUG  "-O0 -g")
 
 add_subdirectory(external/googletest)
 add_subdirectory(source)
+add_subdirectory(demo)
 add_subdirectory(test)

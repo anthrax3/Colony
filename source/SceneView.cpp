@@ -21,8 +21,8 @@ SceneView::SceneView() : QQuickView(nullptr)
 
     // configure rendering surface
     QSurfaceFormat format;
-    format.setMajorVersion(3);
-    format.setMinorVersion(3);
+  //  format.setMajorVersion(3);
+  //  format.setMinorVersion(3);
     format.setProfile(QSurfaceFormat::CompatibilityProfile);
     format.setDepthBufferSize(24);
     format.setStencilBufferSize(0);
