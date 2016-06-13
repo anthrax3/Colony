@@ -71,11 +71,12 @@ void SimpleAntDriver::update(float delta_time) {
         }
 
         // stop on collision
-        if (auto physics = findComponentByType<PhysicsComponent>())
-            if (auto bounce_plane = collision_resolver->resolveCollision(physics->collider_item, next_position)) {
-                direction = reflect(direction, *bounce_plane);
-                return; // dont move if collision
-            }
+        if (collision_resolver)
+            if (auto physics = findComponentByType<PhysicsComponent>())
+                if (auto bounce_plane = collision_resolver->resolveCollision(physics->collider_item, next_position)) {
+                    direction = reflect(direction, *bounce_plane);
+                    return; // dont move if collision
+                }
 
         transform->translate += direction * speed * delta_time;
 
