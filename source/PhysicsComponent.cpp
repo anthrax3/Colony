@@ -5,9 +5,10 @@
  * @author: mateusz
  */
 
+#include <iostream>
+#include "LocalTransformComponent.h"
 #include "CollisionResolver.h"
 #include "PhysicsComponent.h"
-#include <iostream>
 
 
 std::shared_ptr<CollisionResolver> resolver;
@@ -41,4 +42,8 @@ void PhysicsComponent::update(float delta_time) {
             std::cout << "PhysicsComponent: collider registered!" << std::endl;
         }
     }
+
+    if (collider_item)
+        if (auto transform = findComponentByType<LocalTransformComponent>())
+            collider_item->updateCollisionMesh(transform->absolute_transform);
 }

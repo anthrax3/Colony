@@ -61,10 +61,9 @@ unique_ptr<QVector3D> CollisionResolver::resolveCollision(const shared_ptr<Physi
  */
 unique_ptr<QVector3D> CollisionResolver::resolveCollision(const shared_ptr<ColliderItem> &collider,
         const QVector3D &position) {
-
     auto circle_collider = static_pointer_cast<CircleColliderItem>(collider);
     float radius1 = circle_collider->radius;
-    const QVector3D &position1 = position;
+    const QVector3D &position1 = next_position;
 
     for (auto p : colliders) {
         auto circle_collider2 = static_pointer_cast<CircleColliderItem>(p->collider_item);
@@ -74,8 +73,7 @@ unique_ptr<QVector3D> CollisionResolver::resolveCollision(const shared_ptr<Colli
             continue;
 
         float radius2 = circle_collider2->radius;
-        auto transform2 = p->findComponentByType<LocalTransformComponent>();
-        QVector3D position2 = transform2->absolute_transform.column(3).toVector3D();
+        QVector3D position2 = circle_collider2->absolute_center;
 
         // if two circles collide - return ptr to normal vector of collision plane
         if (position2.distanceToPoint(position1) <= radius1 + radius2)

@@ -66,12 +66,12 @@ void SimpleAntDriver::update(float delta_time) {
     if (auto transform = findComponentByType<LocalTransformComponent>()) {
         QVector3D next_position = transform->absolute_transform.column(3).toVector3D();// + direction * speed * delta_time;
 
-        if ((next_position.x() <= 0) || (next_position.x() > 320)) {
+        if ((next_position.x() <= 0) || (next_position.x() > 640)) {
             direction.setX(-direction.x());
             //return; // dont move if collision
         }
 
-        if ((next_position.y() <= 0) || (next_position.y() > 240)) {
+        if ((next_position.y() <= 0) || (next_position.y() > 480)) {
             direction.setY(-direction.y());
             //return; // dont move if collision
         }
