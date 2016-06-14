@@ -34,6 +34,7 @@ set(SOURCES
         ColliderItem.cpp
         CircleColliderItem.cpp
         CollisionResolver.cpp
+        BoxColliderItem.cpp
 )
     
 # Add a project library target that gathers all the sources
