@@ -5,6 +5,7 @@ set(SOURCES
         SceneNode_Test.cpp
         GameObject_Test.cpp
         TransformMatrixCombiner_Test.cpp
+        MultiMethod_Test.cpp
 )
     
 # Add library target that gathers all the sources

@@ -27,10 +27,10 @@
  */
 class CollisionResolver: public GameObject {
 
-    MultiMethod<const std::shared_ptr<ColliderItem>&, const std::shared_ptr<ColliderItem>&, std::unique_ptr<QVector3D>> collisionFunc;
+    MultiMethod<const std::shared_ptr<ColliderItem>&, const std::shared_ptr<ColliderItem>&, std::unique_ptr<QVector3D>> collisionMultiMethod;
 
 	void registerCollisionFunctions();
-	std::unique_ptr<QVector3D> dispatchCollide(const std::shared_ptr<ColliderItem> c1, const std::shared_ptr<ColliderItem> c2);
+	std::unique_ptr<QVector3D> dispatchCollide(const std::shared_ptr<ColliderItem> &c1, const std::shared_ptr<ColliderItem> &c2);
 	static std::unique_ptr<QVector3D> collideCircleCircle(const std::shared_ptr<ColliderItem> &c1, const std::shared_ptr<ColliderItem> &c2);
 	static std::unique_ptr<QVector3D> collideCircleBox(const std::shared_ptr<ColliderItem> &c1, const std::shared_ptr<ColliderItem> &c2);
 	static std::unique_ptr<QVector3D> collideBoxBox(const std::shared_ptr<ColliderItem> &c1, const std::shared_ptr<ColliderItem> &c2);

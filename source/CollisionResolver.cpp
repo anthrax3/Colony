@@ -88,18 +88,14 @@ unique_ptr<QVector3D> CollisionResolver::resolveCollision(const shared_ptr<Colli
 
 
 void CollisionResolver::registerCollisionFunctions() {
-    collisionFunc.addMethod<const shared_ptr<CircleColliderItem> &, const shared_ptr<CircleColliderItem> &>(collideCircleCircle);
-    collisionFunc.addMethod<const shared_ptr<CircleColliderItem> &, const shared_ptr<BoxColliderItem> &>(collideCircleBox);
-    collisionFunc.addMethodReverseParams<const shared_ptr<BoxColliderItem> &, const shared_ptr<CircleColliderItem> &>(collideCircleBox);
-    collisionFunc.addMethod<const shared_ptr<BoxColliderItem> &, const shared_ptr<BoxColliderItem> &>(collideCircleBox);
+    collisionMultiMethod.addMethod<const shared_ptr<CircleColliderItem> &, const shared_ptr<CircleColliderItem> &>(collideCircleCircle);
+    collisionMultiMethod.addMethod<const shared_ptr<CircleColliderItem> &, const shared_ptr<BoxColliderItem> &>(collideCircleBox);
+    collisionMultiMethod.addMethodReverseParams<const shared_ptr<BoxColliderItem> &, const shared_ptr<CircleColliderItem> &>(collideCircleBox);
+    collisionMultiMethod.addMethod<const shared_ptr<BoxColliderItem> &, const shared_ptr<BoxColliderItem> &>(collideCircleBox);
 }
 
-unique_ptr<QVector3D> CollisionResolver::dispatchCollide(const shared_ptr<ColliderItem> c1, const shared_ptr<ColliderItem> c2) {
-//	auto h1 = typeid(*c1).hash_code();
-//	auto h2 = typeid(*c2).hash_code();
-//	return collision_functions[make_tuple(h1, h2)](c1, c2);
-    // no collision. Return empty pointer
-    return unique_ptr<QVector3D>();
+unique_ptr<QVector3D> CollisionResolver::dispatchCollide(const shared_ptr<ColliderItem> &c1, const shared_ptr<ColliderItem> &c2) {
+    return collisionMultiMethod.dispatch(c1, c2);
 }
 
 unique_ptr<QVector3D> CollisionResolver::collideCircleCircle(const shared_ptr<ColliderItem> &c1, const shared_ptr<ColliderItem> &c2) {
