@@ -99,9 +99,25 @@ unique_ptr<QVector3D> CollisionResolver::dispatchCollide(const shared_ptr<Collid
 }
 
 unique_ptr<QVector3D> CollisionResolver::collideCircleCircle(const shared_ptr<ColliderItem> &c1, const shared_ptr<ColliderItem> &c2) {
+    // please dont self-collide
+    if (c1 == c2)
+        return unique_ptr<QVector3D>();
+
+    auto circle_collider1 = static_pointer_cast<CircleColliderItem>(c1);
+    auto circle_collider2 = static_pointer_cast<CircleColliderItem>(c2);
+
+    QVector3D position1; // = circle_collider1->absolute_center;
+    QVector3D position2; // = circle_collider2->absolute_center;
+    float &radius1 = circle_collider1->radius;
+    float &radius2 = circle_collider2->radius;
+    // if two circles collide - return ptr to normal vector of collision plane
+    if (position2.distanceToPoint(position1) <= radius1 + radius2)
+        return make_unique<QVector3D>((position1 - position2).normalized());
+
     // no collision. Return empty pointer
     return unique_ptr<QVector3D>();
 }
+
 unique_ptr<QVector3D> CollisionResolver::collideCircleBox(const shared_ptr<ColliderItem> &c1, const shared_ptr<ColliderItem> &c2) {
     // no collision. Return empty pointer
     return unique_ptr<QVector3D>();
