@@ -42,8 +42,14 @@ SimpleAntDriver::~SimpleAntDriver() {
  */
 QVector3D reflect(const QVector3D &d, const QVector3D &normal) {
     float dot = QVector3D::dotProduct(d, normal);
+
+    // dont reflect if d and normal point the same direction
+    if (dot >= 0.0f)
+        return d;
+
     return d - 2 * dot * normal;
 }
+
 /**
  * @name    update
  * @brief   Here the ant makes a step forward at its own pace
@@ -58,16 +64,16 @@ void SimpleAntDriver::update(float delta_time) {
     }
 
     if (auto transform = findComponentByType<LocalTransformComponent>()) {
-        QVector3D next_position = transform->absolute_transform.column(3).toVector3D() + direction * speed * delta_time;
+        QVector3D next_position = transform->absolute_transform.column(3).toVector3D();// + direction * speed * delta_time;
 
         if ((next_position.x() <= 0) || (next_position.x() > 320)) {
             direction.setX(-direction.x());
-            return; // dont move if collision
+            //return; // dont move if collision
         }
 
         if ((next_position.y() <= 0) || (next_position.y() > 240)) {
             direction.setY(-direction.y());
-            return; // dont move if collision
+            //return; // dont move if collision
         }
 
         // stop on collision
@@ -75,7 +81,7 @@ void SimpleAntDriver::update(float delta_time) {
             if (auto physics = findComponentByType<PhysicsComponent>())
                 if (auto bounce_plane = collision_resolver->resolveCollision(physics->collider_item, next_position)) {
                     direction = reflect(direction, *bounce_plane);
-                    return; // dont move if collision
+                  //  return; // dont move if collision
                 }
 
         transform->translate += direction * speed * delta_time;
