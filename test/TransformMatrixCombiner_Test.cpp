@@ -36,14 +36,10 @@ TEST(TransformMatrixCombiner_Test, one_node_graph)
     root_transform->rotate = rotate;
     root_node->addComponent(root_transform);
 
-    // root graphics; it holds absolute transform
-    auto root_graphics = make_shared<GraphicsComponent>();
-    root_node->addComponent(root_graphics);
-
     // calculate absolute transform from local transform
     TransformMatrixCombiner::combineLocalTransforms(root_node);
 
-    ASSERT_EQ(expected_absolute, *root_graphics->absolute_transform);
+    ASSERT_EQ(expected_absolute, root_transform->absolute_transform);
 }
 
 TEST(TransformMatrixCombiner_Test, combine_transforms_correct)
@@ -84,13 +80,9 @@ TEST(TransformMatrixCombiner_Test, combine_transforms_correct)
     b_transform->scale = scale;
     b_node->addComponent(b_transform);
 
-    // b graphics to store absolute transform
-    shared_ptr<GraphicsComponent> b_graphics = make_shared<GraphicsComponent>();
-    b_node->addComponent(b_graphics);
-
     // now combine the local transforms to generate absolute transforms
     TransformMatrixCombiner::combineLocalTransforms(root_node);
 
-    ASSERT_EQ(expected_absolute, *b_graphics->absolute_transform);
+    ASSERT_EQ(expected_absolute, b_transform->absolute_transform);
 }
 
