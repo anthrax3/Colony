@@ -118,10 +118,42 @@ unique_ptr<QVector3D> CollisionResolver::collideCircleCircle(const shared_ptr<Co
     return unique_ptr<QVector3D>();
 }
 
-unique_ptr<QVector3D> CollisionResolver::collideCircleBox(const shared_ptr<ColliderItem> &c1, const shared_ptr<ColliderItem> &c2) {
+unique_ptr<QVector3D> collideCircleInvertedBox(const shared_ptr<CircleColliderItem> &c1, const shared_ptr<BoxColliderItem> &c2) {
+    QVector3D position; // = circle_collider->absolute_center;
+    for (const BoxColliderItem::Plane &plane : c2->/*absolute_*/collision_planes)
+        if (position.distanceToPlane(*plane[0], *plane[1], *plane[2]) >= 0.0f)
+            return make_unique<QVector3D>(QVector3D::normal(*plane[0], *plane[1], *plane[2]));
+
     // no collision. Return empty pointer
     return unique_ptr<QVector3D>();
 }
+
+unique_ptr<QVector3D> collideCircleRegularBox(const shared_ptr<CircleColliderItem> &c1, const shared_ptr<BoxColliderItem> &c2) {
+    QVector3D position; // = circle_collider->absolute_center;
+    for (const BoxColliderItem::Plane &plane : c2->/*absolute_*/collision_planes)
+        // outside the box. No collision
+        if (position.distanceToPlane(*plane[0], *plane[1], *plane[2]) > 0.0f)
+            return unique_ptr<QVector3D>();
+
+    // collision. But which plane???
+    return unique_ptr<QVector3D>();
+
+}
+
+unique_ptr<QVector3D> CollisionResolver::collideCircleBox(const shared_ptr<ColliderItem> &c1, const shared_ptr<ColliderItem> &c2) {
+    // please dont self-collide
+    if (c1 == c2)
+        return unique_ptr<QVector3D>();
+
+    auto circle_collider = static_pointer_cast<CircleColliderItem>(c1);
+    auto box_collider = static_pointer_cast<BoxColliderItem>(c2);
+
+    if (box_collider->is_inverted)
+        return collideCircleInvertedBox(circle_collider, box_collider);
+    else
+        return collideCircleRegularBox(circle_collider, box_collider);
+}
+
 unique_ptr<QVector3D> CollisionResolver::collideBoxBox(const shared_ptr<ColliderItem> &c1, const shared_ptr<ColliderItem> &c2) {
     // no collision. Return empty pointer
     return unique_ptr<QVector3D>();
