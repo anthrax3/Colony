@@ -43,8 +43,6 @@ public:
 
     void removeCollider(PhysicsComponent *item);
 
-    std::unique_ptr<QVector3D> resolveCollision(const std::shared_ptr<PhysicsComponent> &physics);
-
     std::unique_ptr<QVector3D> resolveCollision(const std::shared_ptr<ColliderItem> &collider,
             const QVector3D &position);
 

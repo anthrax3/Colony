@@ -28,30 +28,6 @@ void CollisionResolver::removeCollider(PhysicsComponent *item) {
         colliders.erase(it);
 }
 
-unique_ptr<QVector3D> CollisionResolver::resolveCollision(const shared_ptr<PhysicsComponent> &physics) {
-    auto circle_collider = static_pointer_cast<CircleColliderItem>(physics->collider_item);
-    float radius1 = circle_collider->radius;
-
-    auto transform = physics->findComponentByType<LocalTransformComponent>();
-    QVector3D position1 = transform->absolute_transform.column(3).toVector3D();
-
-    for (auto p : colliders) {
-        if (p == physics.get())
-            continue;
-
-        auto circle_collider2 = static_pointer_cast<CircleColliderItem>(p->collider_item);
-        float radius2 = circle_collider2->radius;
-
-        auto transform2 = p->findComponentByType<LocalTransformComponent>();
-        QVector3D position2 = transform2->absolute_transform.column(3).toVector3D();
-
-        if (position2.distanceToPoint(position1) < radius1 + radius2)
-            return make_unique<QVector3D>((position2 - position1).normalized());
-    }
-
-    return unique_ptr<QVector3D>();
-}
-
 /**
  * @name    resolveCollision
  * @brief   check if given collider at given position collides with something
@@ -63,7 +39,7 @@ unique_ptr<QVector3D> CollisionResolver::resolveCollision(const shared_ptr<Colli
         const QVector3D &position) {
     auto circle_collider = static_pointer_cast<CircleColliderItem>(collider);
     float radius1 = circle_collider->radius;
-    const QVector3D &position1 = next_position;
+    const QVector3D &position1 = position;
 
     for (auto p : colliders) {
         auto circle_collider2 = static_pointer_cast<CircleColliderItem>(p->collider_item);
@@ -146,7 +122,6 @@ unique_ptr<QVector3D> collideCircleRegularBox(const shared_ptr<CircleColliderIte
     }
 
     return make_unique<QVector3D>(QVector3D::normal(*min_distance_plane[0], *min_distance_plane[1], *min_distance_plane[2]));
-
 }
 
 unique_ptr<QVector3D> CollisionResolver::collideCircleBox(const shared_ptr<ColliderItem> &c1, const shared_ptr<ColliderItem> &c2) {
