@@ -130,13 +130,24 @@ unique_ptr<QVector3D> collideCircleInvertedBox(const shared_ptr<CircleColliderIt
 
 unique_ptr<QVector3D> collideCircleRegularBox(const shared_ptr<CircleColliderItem> &c1, const shared_ptr<BoxColliderItem> &c2) {
     QVector3D position; // = circle_collider->absolute_center;
-    for (const BoxColliderItem::Plane &plane : c2->/*absolute_*/collision_planes)
+    float min_distance = -99999999.0f;
+    BoxColliderItem::Plane min_distance_plane;
+
+    for (const BoxColliderItem::Plane &plane : c2->/*absolute_*/collision_planes) {
+        float distance = position.distanceToPlane(*plane[0], *plane[1], *plane[2]);
+
         // outside the box. No collision
-        if (position.distanceToPlane(*plane[0], *plane[1], *plane[2]) > 0.0f)
+        if (distance > 0.0f)
             return unique_ptr<QVector3D>();
 
-    // collision. But which plane???
-    return unique_ptr<QVector3D>();
+        // remember this plane if its closer to our position
+        if (distance > min_distance) {
+            min_distance = distance;
+            min_distance_plane = plane;
+        }
+    }
+
+    return make_unique<QVector3D>(QVector3D::normal(*min_distance_plane[0], *min_distance_plane[1], *min_distance_plane[2]));
 
 }
 
