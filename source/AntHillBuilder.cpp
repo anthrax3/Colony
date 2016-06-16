@@ -26,7 +26,7 @@ shared_ptr<GameObject> AntHillBuilder::buildAntHill(float x, float y) {
     transform->translate = QVector3D(x, y, 0);
 
     auto granary = make_shared<GranaryComponent>();
-    granary->food = 450;
+    granary->food = 10;
 
     auto ant_generator = make_shared<AntGeneratorComponent>();
     ant_generator->time_interval = 0.5f;

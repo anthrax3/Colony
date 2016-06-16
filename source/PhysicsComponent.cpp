@@ -22,9 +22,9 @@ PhysicsComponent::PhysicsComponent() {
  */
 PhysicsComponent::~PhysicsComponent() {
     if ((collider_registered) && (collider_item) && (resolver)) {
-        resolver->removeCollider(this);
+        resolver->removeCollider(collider_item);
         collider_registered = false;
-        std::cout << "PhysicsComponent: collider unregistered!" << std::endl;
+//        std::cout << "PhysicsComponent: collider unregistered!" << std::endl;
     }
 }
 
@@ -37,9 +37,9 @@ void PhysicsComponent::update(float delta_time) {
     if ((!collider_registered) && (collider_item)) {
         resolver = owner->findNodeByTypeEverywhere<CollisionResolver>();
         if (resolver) {
-            resolver->addCollider(this);
+            resolver->addCollider(collider_item);
             collider_registered = true;
-            std::cout << "PhysicsComponent: collider registered!" << std::endl;
+//            std::cout << "PhysicsComponent: collider registered!" << std::endl;
         }
     }
 

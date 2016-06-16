@@ -58,33 +58,18 @@ QVector3D reflect(const QVector3D &d, const QVector3D &normal) {
 void SimpleAntDriver::update(float delta_time) {
     if (!collision_resolver) {
         collision_resolver = owner->findNodeByTypeEverywhere<CollisionResolver>();
-
-        if (collision_resolver)
-            std::cout << "Ant:: collision resolver found!" << std::endl;
     }
 
     if (auto transform = findComponentByType<LocalTransformComponent>()) {
-        QVector3D next_position = transform->absolute_transform.column(3).toVector3D();// + direction * speed * delta_time;
-
-        if ((next_position.x() <= 0) || (next_position.x() > 640)) {
-            direction.setX(-direction.x());
-            //return; // dont move if collision
-        }
-
-        if ((next_position.y() <= 0) || (next_position.y() > 480)) {
-            direction.setY(-direction.y());
-            //return; // dont move if collision
-        }
-
-        // stop on collision
+        float turbo = 1;
         if (collision_resolver)
             if (auto physics = findComponentByType<PhysicsComponent>())
-                if (auto bounce_plane = collision_resolver->resolveCollision(physics->collider_item, next_position)) {
+                if (auto bounce_plane = collision_resolver->resolveCollision(physics->collider_item)) {
                     direction = reflect(direction, *bounce_plane);
-                  //  return; // dont move if collision
+                    turbo = 2;
                 }
 
-        transform->translate += direction * speed * delta_time;
+        transform->translate += direction * (speed * turbo) * delta_time;
 
         if (direction.x() == 0.0f)
             transform->rotate.setZ(90.0f);

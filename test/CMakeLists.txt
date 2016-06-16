@@ -6,6 +6,8 @@ set(SOURCES
         GameObject_Test.cpp
         TransformMatrixCombiner_Test.cpp
         MultiMethod_Test.cpp
+        CircleCircleCollider_Test.cpp
+        CircleBoxCollider_Test.cpp
 )
     
 # Add library target that gathers all the sources

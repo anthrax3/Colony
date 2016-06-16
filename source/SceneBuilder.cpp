@@ -15,6 +15,7 @@
 #include "AntHillBuilder.h"
 #include "CollisionResolver.h"
 #include "CircleColliderItem.h"
+#include "BoxColliderItem.h"
 #include "SceneBuilder.h"
 
 using namespace std;
@@ -204,6 +205,23 @@ shared_ptr<GameObject> buildCircularObstacle(float x, float y, float radius) {
     return root;
 }
 
+shared_ptr<GameObject> buildGameAreaBoundingBox(float width, float height) {
+    auto root = make_shared<GameObject>();
+
+    auto transform = make_shared<LocalTransformComponent>();
+
+    auto box_collider = make_shared<BoxColliderItem>(QVector3D(0, 0, 0), width, height, 1.0f);
+    box_collider->is_inverted = true;
+
+    auto physics = make_shared<PhysicsComponent>();
+    physics->collider_item = box_collider;
+
+    root->addComponent(transform);
+    root->addComponent(physics);
+
+    return root;
+}
+
 shared_ptr<GameObject> SceneBuilder::buildAntHillSceneWithCollisionResolver(float x, float y) {
     auto root = make_shared<GameObject>();
     auto collision_resolver = make_shared<CollisionResolver>();
@@ -213,6 +231,7 @@ shared_ptr<GameObject> SceneBuilder::buildAntHillSceneWithCollisionResolver(floa
     root->addChild(buildCircularObstacle(270, 100, 40));
     root->addChild(buildCircularObstacle(200, 200, 35));
     root->addChild(buildCircularObstacle(20, 150, 30));
+    root->addChild(buildGameAreaBoundingBox(300, 200));
 
     return root;
 }
