@@ -25,3 +25,5 @@ target_link_libraries(unittest
                             colony
                             gtest_main
 )
+
+add_test(unittest unittest)
