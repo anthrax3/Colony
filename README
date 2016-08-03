@@ -1,3 +1,9 @@
-export CMAKE_PREFIX_PATH=/usr/local/lib/Qt5.7.0/5.7/gcc_64/
-cmake ..
-make
+Uses googletest as submodule, so clone the repo with --recursive, or after cloning:
+	git submodule update --init --recursive
+
+Uses QT5, so before build need to configure CMAKE env var to point to QT5:
+	export CMAKE_PREFIX_PATH=/usr/local/lib/Qt5.7.0/5.7/gcc_64/
+	
+	
+cmake -DCMAKE_BUILD_TYPE=DEBUG .. # or RELEASE
+make -j
